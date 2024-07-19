@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id                  Int       @id @default(autoincrement())
+  nickname            String 
+  socketId            String
+  points              Int       @default(0)
+  playerType          String   // this is for X or O type
+  turnActive          Boolean   @default(false)
+  joinedGame          Game      @relation(fields: [joinedGameId],references: [id],onDelete: Cascade)
+  joinedGameId        Int
+}
+
+model Game{
+  id            Int         @id @default(autoincrement())
+  playerTurn    Int         @default(0)
+  maxRounds     Int         @default(6)
+  joinable      Boolean     @default(true)
+  occupancy     Int         @default(2)
+  currentRound  Int         @default(1)
+  players       User[]
+
+}
