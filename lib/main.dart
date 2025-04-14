@@ -30,9 +30,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData.light(useMaterial3: true).copyWith(scaffoldBackgroundColor : bgColor),
-        home:  Scaffold(
-          appBar: AppBar(title: const Text('this is appbara'),),
-        ),
+        home:  const MyHomePage()
       ),
     );
   }
